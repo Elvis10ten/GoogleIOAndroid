@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2019 Google LLC
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+-->
+<resources>
+
+    <string name="playstore_tagline">不論是親臨 I/O 大會現場或以遠端方式參加，這款應用程式都是你的最佳導航幫手。</string>
+
+    <string name="playstore_change">更新 2018 年 Google I/O 大會相關訊息\n• 可事先預約活動席位\n• 可查看有關大會活動的重要資訊、交通方式詳細資訊和常見問題。</string>
+    <string name="playstore_required_permissions">必要權限</string>
+    <string name="playstore_optional_permissions">選用權限</string>
+    <string name="playstore_permission_location_information">位置資訊：授予這項權限後，應用程式即可顯示使用者所在位置一帶的會場地圖。</string>
+</resources>
