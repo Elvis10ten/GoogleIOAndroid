@@ -1,0 +1,37 @@
+<!--
+  ~ Copyright 2019 Google LLC
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="164dp"
+    android:height="100dp"
+    android:viewportWidth="328"
+    android:viewportHeight="200">
+    <path
+        android:fillColor="#FAD2CF"
+        android:pathData="M165,100v100h167v-44.13h-40.93v-16.33h-35.07v-20.67h-40.4v-18.87z" />
+    <path
+        android:fillColor="#FAD2CF"
+        android:pathData="M0,48h116v-5h-116zM111,93h5v-50h-5zM111,146h5v-48h-5zM0,43h5v-43h-5z" />
+    <path
+        android:fillColor="#FCE8E6"
+        android:pathData="M0,5h62v-5h-62zM0,151h160v-5h-160zM0,200h165v-5h-165zM0,201h5v-103h-5zM57,93h5v-93h-5z" />
+    <path
+        android:fillColor="#E5443F"
+        android:pathData="M165,0v100h167v-44.13h-40.93v-16.33h-35.07v-20.67h-40.39v-18.87z" />
+    <path
+        android:fillColor="#EE675C"
+        android:pathData="M0,98h165v-5h-165zM160,195h5v-102h-5zM0,93h5v-45h-5z" />
+</vector>

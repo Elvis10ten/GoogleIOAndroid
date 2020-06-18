@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright 2018 Google LLC
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.google.samples.apps.iosched">
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <application
+        android:name=".MainApplication"
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- Required for apps targeting API 28 and above and using Google Maps. -->
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+
+        <meta-data android:name="com.google.ar.core" android:value="optional" />
+
+        <meta-data tools:replace="android:value"
+            android:name="com.google.ar.core.min_apk_version"
+            android:value="190128000" />
+
+        <activity
+            android:name=".ui.LauncherActivity"
+            android:theme="@style/AppTheme.Launcher">
+            <!-- This will have to be placed wherever the activity-alias is pointing to. -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+         </activity>
+
+        <activity
+            android:name=".ui.MainActivity" />
+
+        <activity
+            android:name=".ui.onboarding.OnboardingActivity"
+            android:theme="@style/AppTheme.Onboarding" />
+
+        <activity
+            android:name=".ui.sessiondetail.SessionDetailActivity"
+            android:parentActivityName=".ui.MainActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.Detail">
+
+            <intent-filter android:label="Session detail">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <!-- Accepts URIs that begin with "iosched://sessionId” -->
+                <data android:scheme="iosched"
+                    android:host="sessions" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="${crashlyticsEnabled}" />
+
+        <!-- By default, these are not exported since they do not have an intent filter.
+             However, explicitly saying exported="false" to communicate that these are not for
+             other apps to call -->
+        <receiver android:name=".shared.notifications.AlarmBroadcastReceiver"
+            android:exported="false" />
+        <receiver android:name=".shared.notifications.CancelNotificationBroadcastReceiver"
+            android:exported="false" />
+    </application>
+
+</manifest>

@@ -1,0 +1,36 @@
+<!--
+  ~ Copyright 2019 Google LLC
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="164dp"
+    android:height="100dp"
+    android:viewportWidth="328"
+    android:viewportHeight="200">
+    <path
+        android:fillColor="#FBBC04"
+        android:pathData="M83.892,201m83,0a83,83 0,1 0,-166 0a83,83 0,1 0,166 0" />
+    <path
+        android:pathData="M169.5,2.5v195h156v-101.23h-48.16v-50.73h-51.7v-43.04h-56.13z"
+        android:strokeColor="#AF5CF7"
+        android:strokeWidth="5" />
+    <path
+        android:pathData="M1.72,2.5v113h76.8z"
+        android:strokeColor="#4285F4"
+        android:strokeWidth="5" />
+    <path
+        android:fillColor="#78D9EC"
+        android:pathData="M82.231,0v118h84.756z" />
+</vector>
