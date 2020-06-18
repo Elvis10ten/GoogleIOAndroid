@@ -16,6 +16,5 @@
 
 include(
   ":mobile",
-  ":androidTest-shared",
   "depconstraints"
 )

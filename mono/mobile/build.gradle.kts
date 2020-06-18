@@ -189,7 +189,6 @@ dependencies {
     api(platform(project(":depconstraints")))
     kapt(platform(project(":depconstraints")))
 
-    testImplementation(project(":androidTest-shared"))
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(Libs.CORE_KTX)
