@@ -22,6 +22,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("io.fabric")
     id("dagger.hilt.android.plugin")
+    // id("androidx.benchmark")
 }
 
 android {
@@ -32,7 +33,9 @@ android {
         targetSdkVersion(Versions.TARGET_SDK)
         versionCode = Versions.versionCodeMobile
         versionName = Versions.versionName
+
         testInstrumentationRunner = "com.google.samples.apps.iosched.tests.CustomTestRunner"
+        //testInstrumentationRunner = "androidx.benchmark.junit4.AndroidBenchmarkRunner"
 
         buildConfigField("com.google.android.gms.maps.model.LatLng",
                 "MAP_VIEWPORT_BOUND_NE",
@@ -134,6 +137,11 @@ android {
 
     testBuildType = "staging"
 
+    // To avoid the compile error from benchmarkRule.measureRepeated
+    // Cannot inline bytecode built with JVM target 1.8 into bytecode that is being built with JVM
+    // target 1.6
+    kotlinOptions.jvmTarget = "1.8"
+
     // Required for AR because it includes a library built with Java 8
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -225,8 +233,12 @@ dependencies {
 
     implementation(Libs.ARCORE)
 
-    // ### AR Module
+    // #AR Module
     implementation(Libs.GOOGLE_PLAY_SERVICES_VISION)
+
+    // #Benchmark Module
+    androidTestImplementation(Libs.BENCHMARK)
+    androidTestImplementation(Libs.HAMCREST)
 }
 
 apply(plugin = "com.google.gms.google-services")
