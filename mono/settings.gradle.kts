@@ -16,10 +16,6 @@
 
 include(
   ":mobile",
-  ":shared",
-  ":test-shared",
-  ":model",
   ":androidTest-shared",
-  "benchmark",
   "depconstraints"
 )

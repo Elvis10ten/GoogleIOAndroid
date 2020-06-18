@@ -26,7 +26,9 @@ plugins {
 }
 
 android {
+
     compileSdkVersion(Versions.COMPILE_SDK)
+
     defaultConfig {
         applicationId = "com.google.samples.apps.iosched"
         minSdkVersion(Versions.MIN_SDK)
@@ -36,6 +38,7 @@ android {
 
         testInstrumentationRunner = "com.google.samples.apps.iosched.tests.CustomTestRunner"
         //testInstrumentationRunner = "androidx.benchmark.junit4.AndroidBenchmarkRunner"
+        //testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("com.google.android.gms.maps.model.LatLng",
                 "MAP_VIEWPORT_BOUND_NE",
@@ -43,6 +46,25 @@ android {
         buildConfigField("com.google.android.gms.maps.model.LatLng",
                 "MAP_VIEWPORT_BOUND_SW",
                 "new com.google.android.gms.maps.model.LatLng(${properties["map_viewport_bound_sw"]})")
+
+        // ### Shared Module
+        buildConfigField("String", "CONFERENCE_TIMEZONE", properties["conference_timezone"] as String)
+        buildConfigField("String", "CONFERENCE_DAY1_START", properties["conference_day1_start"] as String)
+        buildConfigField("String", "CONFERENCE_DAY1_END", properties["conference_day1_end"] as String)
+        buildConfigField("String", "CONFERENCE_DAY2_START", properties["conference_day2_start"] as String)
+        buildConfigField("String", "CONFERENCE_DAY2_END", properties["conference_day2_end"] as String)
+        buildConfigField("String", "CONFERENCE_DAY3_START", properties["conference_day3_start"] as String)
+        buildConfigField("String", "CONFERENCE_DAY3_END", properties["conference_day3_end"] as String)
+
+        buildConfigField("String", "CONFERENCE_DAY1_AFTERHOURS_START", properties["conference_day1_afterhours_start"] as String)
+        buildConfigField("String", "CONFERENCE_DAY2_CONCERT_START", properties["conference_day2_concert_start"] as String)
+
+        buildConfigField("String",
+                "BOOTSTRAP_CONF_DATA_FILENAME", properties["bootstrap_conference_data_filename"] as String)
+
+        buildConfigField("String",
+                "CONFERENCE_WIFI_OFFERING_START", properties["conference_wifi_offering_start"] as String)
+
 
         buildConfigField("float", "MAP_CAMERA_FOCUS_ZOOM", properties["map_camera_focus_zoom"] as String)
 
@@ -76,6 +98,11 @@ android {
                     "AIzaSyD5jqwKMm1SeoYsW25vxCXfTlhDBeZ4H5c")
 
             buildConfigField("String", "MAP_TILE_URL_BASE", "\"https://storage.googleapis.com/io2019-festivus-prod/images/maptiles\"")
+
+
+            // ### Shared Module
+            buildConfigField("String", "REGISTRATION_ENDPOINT_URL", "\"https://events-d07ac.appspot.com/_ah/api/registration/v1/register\"")
+            buildConfigField("String", "CONFERENCE_DATA_URL", "\"https://firebasestorage.googleapis.com/v0/b/io2019-festivus-prod/o/sessions.json?alt=media&token=89140adf-e228-45a5-9ae3-8ed01547166a\"")
         }
         getByName("debug") {
             versionNameSuffix = "-debug"
@@ -85,6 +112,11 @@ android {
                     "AIzaSyAhJx57ikQH9rYc8IT8W3d2As5cGHMBvuo")
 
             buildConfigField("String", "MAP_TILE_URL_BASE", "\"https://storage.googleapis.com/io2019-festivus/images/maptiles\"")
+
+
+            // ### Shared Module
+            buildConfigField("String", "REGISTRATION_ENDPOINT_URL", "\"https://events-dev-62d2e.appspot.com/_ah/api/registration/v1/register\"")
+            buildConfigField("String", "CONFERENCE_DATA_URL", "\"https://firebasestorage.googleapis.com/v0/b/io2019-festivus/o/sessions.json?alt=media&token=019af2ec-9fd1-408e-9b86-891e4f66e674\"")
         }
         maybeCreate("staging")
         getByName("staging") {
@@ -130,23 +162,21 @@ android {
         isCheckReleaseBuilds = false
         // See lint.xml for rules configuration
 
-        disable("InvalidPackage")
+        disable("InvalidPackage", "MissingTranslation")
         // Version changes are beyond our control, so don't warn. The IDE will still mark these.
         disable("GradleDependency")
+        // Timber needs to update to new Lint API
+        disable("ObsoleteLintCustomCheck")
     }
 
     testBuildType = "staging"
-
-    // To avoid the compile error from benchmarkRule.measureRepeated
-    // Cannot inline bytecode built with JVM target 1.8 into bytecode that is being built with JVM
-    // target 1.6
-    kotlinOptions.jvmTarget = "1.8"
 
     // Required for AR because it includes a library built with Java 8
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     // To avoid the compile error: "Cannot inline bytecode built with JVM target 1.8
     // into bytecode that is being built with JVM target 1.6"
     kotlinOptions {
@@ -159,8 +189,6 @@ dependencies {
     api(platform(project(":depconstraints")))
     kapt(platform(project(":depconstraints")))
 
-    implementation(project(":shared"))
-    testImplementation(project(":test-shared"))
     testImplementation(project(":androidTest-shared"))
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
@@ -233,12 +261,41 @@ dependencies {
 
     implementation(Libs.ARCORE)
 
-    // #AR Module
+    // ###AR Module
     implementation(Libs.GOOGLE_PLAY_SERVICES_VISION)
 
-    // #Benchmark Module
+    // ###Benchmark Module
     androidTestImplementation(Libs.BENCHMARK)
     androidTestImplementation(Libs.HAMCREST)
+
+    // ###Shared Module
+    // Architecture Components
+    implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
+    // Maps
+    api(Libs.GOOGLE_MAP_UTILS) {
+        exclude(group = "com.google.android.gms")
+    }
+    api(Libs.GOOGLE_PLAY_SERVICES_MAPS)
+    api(Libs.TIMBER)
+    // OkHttp
+    implementation(Libs.OKHTTP)
+    implementation(Libs.OKHTTP_LOGGING_INTERCEPTOR)
+    // Has to be replaced to avoid compile / runtime conflicts between okhttp and firestore
+    api(Libs.OKIO)
+    api(Libs.FIREBASE_AUTH)
+    api(Libs.FIREBASE_CONFIG)
+    api(Libs.FIREBASE_ANALYTICS)
+    api(Libs.FIREBASE_FIRESTORE)
+    api(Libs.FIREBASE_FUNCTIONS)
+    api(Libs.FIREBASE_MESSAGING)
+    // Coroutines
+    api(Libs.COROUTINES)
+    testImplementation(Libs.COROUTINES_TEST)
+
+
+    // ###Model Module
+    // ThreeTenBP for the shared module only. Date and time API for Java.
+    api("org.threeten:threetenbp:${Versions.THREETENBP}:no-tzdb")
 }
 
 apply(plugin = "com.google.gms.google-services")

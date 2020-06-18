@@ -121,4 +121,5 @@
     <item name="match_parent" format="integer" type="dimen">-1</item>
     <item name="wrap_content" format="integer" type="dimen">-2</item>
 
+    <dimen name="tag_dot_size">8dp</dimen>
 </resources>

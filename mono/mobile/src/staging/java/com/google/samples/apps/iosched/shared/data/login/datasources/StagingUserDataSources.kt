@@ -20,7 +20,7 @@ import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
 import com.google.firebase.auth.UserInfo
-import com.google.samples.apps.iosched.shared.R
+import com.google.samples.apps.iosched.R
 import com.google.samples.apps.iosched.shared.data.signin.AuthenticatedUserInfo
 import com.google.samples.apps.iosched.shared.data.signin.AuthenticatedUserInfoBasic
 import com.google.samples.apps.iosched.shared.data.signin.datasources.AuthStateUserDataSource
