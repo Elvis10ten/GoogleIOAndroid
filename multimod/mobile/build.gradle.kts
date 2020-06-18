@@ -75,6 +75,7 @@ android {
             buildConfigField("String", "MAP_TILE_URL_BASE", "\"https://storage.googleapis.com/io2019-festivus-prod/images/maptiles\"")
         }
         getByName("debug") {
+            (this as ExtensionAware).extra["alwaysUpdateBuildId"] = false
             versionNameSuffix = "-debug"
             manifestPlaceholders = mapOf("crashlyticsEnabled" to false)
             resValue("string",
@@ -85,6 +86,7 @@ android {
         }
         maybeCreate("staging")
         getByName("staging") {
+            (this as ExtensionAware).extra["alwaysUpdateBuildId"] = false
             initWith(getByName("debug"))
             versionNameSuffix = "-staging"
 

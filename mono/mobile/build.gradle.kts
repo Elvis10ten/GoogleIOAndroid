@@ -105,6 +105,7 @@ android {
             buildConfigField("String", "CONFERENCE_DATA_URL", "\"https://firebasestorage.googleapis.com/v0/b/io2019-festivus-prod/o/sessions.json?alt=media&token=89140adf-e228-45a5-9ae3-8ed01547166a\"")
         }
         getByName("debug") {
+            (this as ExtensionAware).extra["alwaysUpdateBuildId"] = false
             versionNameSuffix = "-debug"
             manifestPlaceholders = mapOf("crashlyticsEnabled" to false)
             resValue("string",
@@ -120,6 +121,7 @@ android {
         }
         maybeCreate("staging")
         getByName("staging") {
+            (this as ExtensionAware).extra["alwaysUpdateBuildId"] = false
             initWith(getByName("debug"))
             versionNameSuffix = "-staging"
 
